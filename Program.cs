@@ -2,38 +2,33 @@
 
 namespace OrdenacaoNumeroInteiro
 {
-    class Program
+    public static class Program
     {
-        static void Main(string[] args)
+        public static void Main()
         {
-            Console.Write("Digite um número: ");
-            var numero = Console.ReadLine();
-            var tamanho = numero.Length;
-            int numero1 = int.Parse(numero);
+            var _svc = new CalculoDescendenteService();
 
-            if (numero1 >= 10000000)
+            try
             {
-                Console.Write("Seu número é: ");
-                Console.WriteLine("-1");
+                Console.Write("Insira um número inteiro: ");
+                var numeroRecebido = Console.ReadLine();
+
+                var tamanhoNumero = numeroRecebido.Length;
+
+                if (tamanhoNumero >= 8)
+                {
+                    Console.Write("O Seu retorno é: -1");
+                    Console.ReadKey();
+                }
+                else
+                {
+                    var numero = Convert.ToInt32(numeroRecebido);
+                    _svc.CalculoDescendente(tamanhoNumero, numero);
+                }
             }
-            else
+            catch (Exception)
             {
-                int[] digitos = new int[tamanho];
-
-                for (int i = 0; i < tamanho; i++)
-                {
-                    digitos[i] = numero1 % 10;
-                    numero1 = numero1 / 10;
-                }
-
-                Array.Sort(digitos);
-                int valorDescendente = 0;
-                for (int i = tamanho - 1; i >= 0; i--)
-                {
-                    valorDescendente = valorDescendente * 10 + digitos[i];
-                }
-                Console.Write("Seu número é: ");
-                Console.WriteLine(valorDescendente);
+                Console.WriteLine("Verifique o numero inserido e tente novamente.");
             }
         }
     }
